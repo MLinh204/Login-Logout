@@ -20,6 +20,8 @@ public class Employee {
     private String address;
     @NotEmpty(message = "Cannot empty")
     private String image;
+    @ManyToOne
+    private Company company;
 
     public Long getId() {
         return id;
@@ -59,5 +61,13 @@ public class Employee {
 
     public void setImage(String image) {
         this.image = image;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

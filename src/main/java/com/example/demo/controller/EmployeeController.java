@@ -1,6 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.Repo.CompanyRepository;
 import com.example.demo.Repo.EmployeeRepository;
+import com.example.demo.model.Company;
 import com.example.demo.model.Employee;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +14,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
+@RequestMapping("/employee")
 public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
+    @Autowired
+    private CompanyRepository companyRepository;
 
     @RequestMapping(value = "/list")
     public String getAllEmployees(Model model){
@@ -32,6 +37,8 @@ public class EmployeeController {
 
     @GetMapping(value = "/add")
     public String addEmployeeForm(Model model){
+        List<Company> companies = companyRepository.findAll();
+        model.addAttribute("companies", companies);
         model.addAttribute("employee", new Employee());
         return "addEmployee";
     }
@@ -40,7 +47,6 @@ public class EmployeeController {
         if (result.hasErrors()) {
             return "addEmployee";
         }
-        // Process the employee object
         employeeRepository.save(employee);
         return "redirect:/";
     }
