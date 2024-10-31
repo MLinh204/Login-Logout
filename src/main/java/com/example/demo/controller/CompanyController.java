@@ -22,9 +22,15 @@ public class CompanyController {
     @GetMapping(value = "/{id}")
     public String getCompanyById(@PathVariable(value = "id") Long id, Model model) {
         Company company = companyRepository.getById(id);
-        List<Employee> employees = employeeRepository.findAll();
+        List<Employee> employees = company.getEmployees();
         model.addAttribute("company", company);
         model.addAttribute("employees", employees);
         return "companyDetail";
+    }
+    @GetMapping(value = "/list")
+    public String getAllCompany(Model model){
+        List<Company> companies = companyRepository.findAll();
+        model.addAttribute("companies", companies);
+        return "companyList";
     }
 }

@@ -27,6 +27,13 @@
             <label for="image">Image URL</label>
             <input type="text" class="form-control" id="image" th:field="*{image}">
         </div>
+        <fieldset class="form-group">
+            <label>Company name</label>
+            <select class="form-select" th:field="*{company}">
+                <option th:each="company : ${companies}" th:value="${company.id}" th:text="${company.name}">
+                </option>
+            </select>
+        </fieldset>
         <button type="submit" class="btn btn-primary">Add Employee</button>
         <a href="/" class="btn btn-secondary">Cancel</a>
     </form>

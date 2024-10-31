@@ -21,21 +21,21 @@ public class EmployeeController {
     @Autowired
     private CompanyRepository companyRepository;
 
-    @RequestMapping(value = "/list")
+    @RequestMapping("/list")
     public String getAllEmployees(Model model){
         List<Employee> employees = employeeRepository.findAll();
         model.addAttribute("employees", employees);
         return "employeeList";
     }
 
-    @RequestMapping(value = "/{id}")
+    @RequestMapping("/{id}")
     public String getEmployeeById(Model model, @PathVariable Long id){
         Employee employee = employeeRepository.findById(id).orElse(null);
         model.addAttribute("employee", employee);
         return "employeeDetail";
     }
 
-    @GetMapping(value = "/add")
+    @GetMapping("/add")
     public String addEmployeeForm(Model model){
         List<Company> companies = companyRepository.findAll();
         model.addAttribute("companies", companies);
@@ -51,14 +51,16 @@ public class EmployeeController {
         return "redirect:/";
     }
 
-    @GetMapping(value = "/update/{id}")
+    @GetMapping("/update/{id}")
     public String updateEmployeeForm(@PathVariable Long id, Model model){
         Employee employee = employeeRepository.findById(id).orElse(null);
+        List<Company> companies = companyRepository.findAll();
+        model.addAttribute("companies", companies);
         model.addAttribute("employee", employee);
         return "updateEmployee";
     }
-    @PostMapping(value = "/update/{id}")
-    public String updateEmployee(@Valid Employee employee, @RequestParam(value = "id", required = false) Long id, BindingResult result){
+    @PostMapping("/update/{id}")
+    public String updateEmployee(@Valid Employee employee, @PathVariable Long id, BindingResult result){
         Employee existingEmployee = employeeRepository.findById(id).orElse(null);
         if(result.hasErrors()){
             return "addEmployee";
@@ -67,13 +69,21 @@ public class EmployeeController {
         existingEmployee.setAge(employee.getAge());
         existingEmployee.setAddress(employee.getAddress());
         existingEmployee.setImage(employee.getImage());
+        existingEmployee.setCompany(employee.getCompany());
         employeeRepository.save(existingEmployee);
-        return "redirect:/list";
+        return "redirect:/employee/list";
     }
 
     @GetMapping(value = "/delete/{id}")
     public String deleteEmployee(@PathVariable Long id){
         employeeRepository.deleteById(id);
-        return "redirect:/";
+        return "redirect:/employee/list";
+    }
+
+    @GetMapping("/search")
+    public String searchEmployee(Model model, @RequestParam(value = "name") String name){
+        List<Employee> employees = employeeRepository.findByNameContaining(name);
+        model.addAttribute("employees", employees);
+        return "employeeList";
     }
 }

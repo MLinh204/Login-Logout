@@ -5,6 +5,9 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.Length;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Company {
     @Id
@@ -17,6 +20,9 @@ public class Company {
     private String image;
     @Length(min = 5, max = 50)
     private String address;
+    @OneToMany(mappedBy = "company", cascade = CascadeType.ALL)
+    private List<Employee> employees = new ArrayList<>();
+
 
     public Long getId() {
         return id;
@@ -48,5 +54,13 @@ public class Company {
 
     public void setAddress(@Length(min = 5, max = 50) String address) {
         this.address = address;
+    }
+
+    public List<Employee> getEmployees() {
+        return employees;
+    }
+
+    public void setEmployees(List<Employee> employees) {
+        this.employees = employees;
     }
 }

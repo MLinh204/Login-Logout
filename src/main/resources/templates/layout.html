@@ -12,21 +12,18 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-    <div class="container" style="
-    display: flex;
-    justify-content: space-between;
-">
+    <div class="container" style="display: flex; justify-content: space-between;">
         <a class="navbar-brand" href="/"><i class="fas fa-users"></i> Employee Management System</a>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto" style="
-    display: flex;
-    gap: 30px;
-">
+            <ul class="navbar-nav ms-auto" style="display: flex; gap: 30px;">
                 <li class="nav-item">
                     <a class="nav-link" href="/"><i class="fas fa-home"></i> Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/employee/list"><i class="fas fa-list"></i> Employee List</a>
+                    <a class="nav-link" href="/employee/list"><i class="fas fa-list"></i> Employee</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/company/list"><i class="fas fa-list"></i> Company</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
@@ -38,7 +35,7 @@
 
 <div class="container mt-4">
     <div layout:fragment="content">
-        <!-- This is where the content of each page will be inserted -->
+        <!-- Content will be inserted here -->
     </div>
 </div>
 

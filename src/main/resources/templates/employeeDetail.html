@@ -14,7 +14,9 @@
             <p class="card-text">
                 <strong>ID:</strong> <span th:text="${employee.id}"></span><br>
                 <strong>Age:</strong> <span th:text="${employee.age}"></span><br>
-                <strong>Address:</strong> <span th:text="${employee.address}"></span>
+                <strong>Address:</strong> <span th:text="${employee.address}"></span><br>
+                <strong>Company:</strong> <span th:if="${employee.company != null}"
+                                                th:text="'Company: ' + ${employee.company.name}"></span>
             </p>
             <div th:if="${employee.image}">
                 <img th:src="@{${employee.image}}" alt="Employee Image" class="img-fluid mb-3">
