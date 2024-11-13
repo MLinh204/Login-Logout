@@ -1,73 +1,77 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}">
 <head>
-    <title>Company List</title>
     <style>
-        /* General reset */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
-
         body {
+            font-family: Arial, sans-serif;
             background-color: #f4f4f9;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 20px;
-            color: #333;
         }
-
-        h2 {
-            color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 24px;
-            font-weight: 700;
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
         }
-
-        ul {
-            list-style: none;
-            width: 100%;
-            max-width: 600px;
-            padding: 0;
-        }
-
-        li {
-            background-color: #fff;
+        .card {
+            border: 1px solid #ddd;
             border-radius: 8px;
-            margin-bottom: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            overflow: hidden;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
         }
-
-        li:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        .card:hover {
+            transform: translateY(-5px);
         }
-
-        a {
+        .card-img-top {
+            width: 100%;
+            height: auto;
+        }
+        .card-body {
+            padding: 1rem;
+        }
+        .card-title {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        .card-text {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+        .btn {
             display: block;
-            padding: 15px;
-            color: #2980b9;
+            width: 100%;
+            text-align: center;
+            padding: 0.5rem;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
             text-decoration: none;
-            font-size: 18px;
-            font-weight: 500;
+            transition: background-color 0.3s;
         }
-
-        a:hover {
-            color: #1a5d7f;
+        .btn:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-<h2>Company List</h2>
-
-<ul>
-    <li th:each="company : ${companies}">
-        <a th:href="@{/company/{id}(id=${company.id})}" th:text="${company.name}"></a>
-    </li>
-</ul>
+<div layout:fragment="content" class="container">
+    <h2 style="text-align: center; margin-bottom: 2rem;">Companies List</h2>
+    <div class="row">
+        <div class="col-md-4" th:each="company : ${companies}">
+            <div class="card mb-4">
+                <img th:src="${company.image}" class="card-img-top" alt="Company">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${company.name}"></h5>
+                    <p class="card-text" th:text="${company.address}"></p>
+                    <a th:href="@{/company/{id}(id=${company.id})}" class="btn">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 </body>
 </html>

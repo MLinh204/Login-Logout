@@ -18,8 +18,8 @@ public class Employee {
     @Max(55)
     private int age;
     private String address;
-    @NotEmpty(message = "Cannot empty")
-    private String image;
+    @Column(columnDefinition = "LONGBLOB")
+    private byte[] photo = new byte[0];
     @ManyToOne
     private Company company;
 
@@ -55,12 +55,12 @@ public class Employee {
         this.address = address;
     }
 
-    public String getImage() {
-        return image;
+    public byte[] getPhoto() {
+        return photo;
     }
 
-    public void setImage(String image) {
-        this.image = image;
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     public Company getCompany() {

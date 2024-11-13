@@ -1,42 +1,128 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Add Employee</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <title>Add New Employee</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 2rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        .card-header h2 {
+            margin: 0;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            color: #333;
+        }
+
+        .mb-3 {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+
+        .text-danger {
+            color: #d9534f;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+
+        button, .btn {
+            padding: 0.75rem;
+            border: none;
+            border-radius: 4px;
+            font-size: 1rem;
+            cursor: pointer;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: #fff;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-5">
-    <h1>Add Employee</h1>
-    <form th:action="@{/add}" method="post" th:object="${employee}">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" class="form-control" id="name" th:field="*{name}" required>
-            <p th:if="${#fields.hasErrors('name')}" class="text-danger" th:errors="*{name}"></p>
-        </div>
-        <div class="form-group">
-            <label for="age">Age</label>
-            <input type="number" class="form-control" id="age" th:field="*{age}" required>
-            <p th:if="${#fields.hasErrors('age')}" class="text-danger" th:errors="*{age}"></p>
-        </div>
-        <div class="form-group">
-            <label for="address">Address</label>
-            <input type="text" class="form-control" id="address" th:field="*{address}" required>
-        </div>
-        <div class="form-group">
-            <label for="image">Image URL</label>
-            <input type="text" class="form-control" id="image" th:field="*{image}">
-        </div>
-        <fieldset class="form-group">
-            <label>Company name</label>
-            <select class="form-select" th:field="*{company}">
-                <option th:each="company : ${companies}" th:value="${company.id}" th:text="${company.name}">
-                </option>
-            </select>
-        </fieldset>
-        <button type="submit" class="btn btn-primary">Add Employee</button>
-        <a href="/" class="btn btn-secondary">Cancel</a>
-    </form>
+<div class="card">
+    <div class="card-header">
+        <h2>Add New Employee</h2>
+    </div>
+    <div class="card-body">
+        <form th:action="@{/employee/add}" th:object="${employee}" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label">Name</label>
+                <input type="text" th:field="*{name}">
+                <div class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Age</label>
+                <input type="number" th:field="*{age}">
+                <div class="text-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Address</label>
+                <input type="text" th:field="*{address}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Image (Photo)</label>
+                <input type="file" th:field="*{photo}">
+                <div class="text-danger" th:if="${#fields.hasErrors('photo')}" th:errors="*{photo}"></div>
+            </div>
+            <div class="mb-3">
+                <label class="form-label">Company</label>
+                <select th:field="*{company}">
+                    <option value="">Select Company</option>
+                    <option th:each="company : ${companies}" th:value="${company.id}" th:text="${company.name}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a th:href="@{/employee/list}" class="btn btn-secondary">Cancel</a>
+        </form>
+    </div>
 </div>
 </body>
 </html>

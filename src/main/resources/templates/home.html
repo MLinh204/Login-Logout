@@ -1,13 +1,14 @@
+<!-- home.html -->
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml">
-<head>
-    <meta charset="UTF-8">
-    <title>Home</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout}"><body>
 <div layout:fragment="content" class="text-center">
-    <h1>Welcome to the Employee Management System</h1>
-    <p>This is the home page content.</p>
+    <div class="jumbotron">
+        <h1>Welcome to Employee Management System</h1>
+        <p class="lead">Manage your employees and companies efficiently.</p>
+    </div>
 </div>
 </body>
 </html>

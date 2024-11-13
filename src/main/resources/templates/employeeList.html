@@ -1,27 +1,49 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
 <head>
     <meta charset="UTF-8">
     <title>Employee List</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" th:href="@{/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
 <body>
 <div layout:fragment="content" class="text-center">
     <h1>Employee List</h1>
-    <div class="mt-3 col-3">
-        <form action="/employee/search">
-            <input type="search" class="form-control" placeholder="Search By Name" name="name">
-        </form>
+
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <form th:action="@{/employee/search}" class="form-inline">
+                <input type="search" class="form-control mr-2" placeholder="Search By Name" name="name">
+                <button type="submit" class="btn btn-primary">Search</button>
+            </form>
+        </div>
+        <div class="col-md-4">
+            <a th:href="@{/employee/add}" class="btn btn-primary">Add New Employee</a>
+        </div>
     </div>
-    <a href="/employee/add" class="btn btn-primary mb-3">Add New Employee</a>
+
     <table class="table table-striped">
         <thead>
         <tr>
-            <th>ID</th>
-            <th>Name</th>
+            <th>ID
+            <a th:href="@{/employee/sort/id/asc}" th:if="${sortOrder != 'asc'}">
+                <i class="fas fa-sort-up"></i>
+            </a>
+                <a th:href="@{/employee/sort/id/desc}" th:if="${sortOrder != 'desc'}">
+                    <i class="fas fa-sort-down"></i>
+                </a>
+
+            </th>
+            <th>
+                Name
+                <a th:href="@{/employee/sort/name/asc}" th:if="${sortOrder != 'asc'}">
+                    <i class="fas fa-sort-up"></i>
+                </a>
+                <a th:href="@{/employee/sort/name/desc}" th:if="${sortOrder != 'desc'}">
+                    <i class="fas fa-sort-down"></i>
+                </a>
+            </th>
             <th>Age</th>
             <th>Address</th>
             <th>Actions</th>
@@ -42,5 +64,11 @@
         </tbody>
     </table>
 </div>
+
+<!-- Include Bootstrap and Font Awesome for full functionality -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </body>
 </html>
