@@ -50,7 +50,9 @@ public class AuthController {
 
         try {
             userService.registerNewUser(userDTO);
-            return "redirect:/login?registered=true";
+            model.addAttribute("success", "Registration completed successfully!");
+            model.addAttribute("allRoles", userService.getAllRoles());
+            return "register";
         } catch (RuntimeException e) {
             model.addAttribute("error", e.getMessage());
             model.addAttribute("allRoles", userService.getAllRoles());

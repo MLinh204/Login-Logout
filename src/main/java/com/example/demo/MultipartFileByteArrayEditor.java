@@ -10,7 +10,6 @@ import java.io.IOException;
 public class MultipartFileByteArrayEditor extends ByteArrayPropertyEditor {
     @Override
     public void setAsText(String text) throws IllegalArgumentException {
-        // Ignore the text value, we'll use the MultipartFile instead
     }
 
     @Override
