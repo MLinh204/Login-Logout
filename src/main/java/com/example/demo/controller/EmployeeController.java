@@ -36,14 +36,20 @@ public class EmployeeController {
     private PhotoService photoService;
 
     @RequestMapping("/list")
-    public String getAllEmployees(Model model){
+    public String getAllEmployees(Model model, Principal principal){
+        if(principal == null){
+            return "redirect:/login";
+        }
         List<Employee> employees = employeeRepository.findAll();
         model.addAttribute("employees", employees);
         return "employeeList";
     }
 
     @RequestMapping("/{id}")
-    public String getEmployeeById(Model model, @PathVariable Long id){
+    public String getEmployeeById(Model model, @PathVariable Long id, Principal principal){
+        if(principal == null){
+            return "redirect:/login";
+        }
         Employee employee = employeeRepository.findById(id).orElse(null);
         String base64Photo = employee.getPhoto() != null ?
                 Base64.getEncoder().encodeToString(employee.getPhoto()) : null;
@@ -53,7 +59,10 @@ public class EmployeeController {
     }
 
     @GetMapping("/add")
-    public String addEmployeeForm(Model model, Principal principal) throws AccessDeniedException {
+    public String addEmployeeForm(Model model, Principal principal) {
+        if (principal == null) {
+            return "redirect:/login";
+        }
         String username = principal.getName();
         User user = userRepository.findByUsername(username);
             List<Company> companies = companyRepository.findAll();
@@ -78,7 +87,10 @@ public class EmployeeController {
     }
 
     @GetMapping("/update/{id}")
-    public String updateEmployeeForm(@PathVariable Long id, Model model){
+    public String updateEmployeeForm(@PathVariable Long id, Model model, Principal principal){
+        if(principal == null){
+            return "redirect:/login";
+        }
         Employee employee = employeeRepository.findById(id).orElse(null);
         List<Company> companies = companyRepository.findAll();
         model.addAttribute("companies", companies);

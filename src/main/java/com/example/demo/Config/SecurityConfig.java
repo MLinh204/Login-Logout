@@ -45,6 +45,7 @@ public class SecurityConfig {
                         .requestMatchers("/employee/list").hasAnyAuthority("STANDARD_USER", "ADMIN")
                         .requestMatchers("/employee/update/**").hasAuthority("ADMIN")
                         .requestMatchers("/employee/delete/**").hasAuthority("ADMIN")
+                        .requestMatchers("/employee/add").hasAuthority("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
